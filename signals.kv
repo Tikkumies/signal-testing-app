@@ -1,0 +1,112 @@
+#:kivy 2.1.0
+#:import BoxLayout kivy.uix.boxlayout
+#:import GridLayout kivy.uix.gridlayout
+#:import ToggleButton kivy.uix.togglebutton
+#:import Label kivy.uix.label
+#:import utils kivy.utils
+
+<SignalButton@ToggleButton>:
+    background_normal:'images/SignalOff.png'
+    background_down: 'images/SignalOn.png'
+    outline_width: 2
+    outline_color: utils.get_color_from_hex('#000000')
+
+<ConnectionButton@Button>
+    background_normal:'images/SignalOff.png'
+    background_down: 'images/SignalOn.png'
+    outline_width: 2
+    outline_color: utils.get_color_from_hex('#000000')
+
+<MainWindow>
+    BoxLayout:
+        size: root.width, root.height
+        orientation: "vertical"
+        spacing: 5
+        Label:
+            text: "Connect to server"
+        TextInput:
+            id: ip_input
+            multiline: False
+            text: "raspberrypi.local"
+            hint_text: "IP address"
+        TextInput:
+            id: port_input
+            multiline: False
+            text: "5050"
+            hint_text: "Port"
+        ConnectionButton:
+            text: "Connect"
+            on_press: root.connect_to_server()
+        ConnectionButton:
+            text: "Disconnect"
+            on_state: root.disconnect()
+        Label:
+            text: root.connection_state
+        Label:
+            text: "Program signals"
+        SignalButton:
+            text: "P1"
+            on_state:
+                if self.state == "down": \
+                root.send_message("P1_1") 
+                if self.state == "normal":\
+                root.send_message("P1_0")
+        SignalButton:
+            text: "P2"
+            id: p2_button
+            on_state:
+                if self.state == "down": \
+                root.send_message("P2_1") 
+                if self.state == "normal":\
+                root.send_message("P2_0")
+        SignalButton:
+            text: "P3"
+            on_state:
+                if self.state == "down": \
+                root.send_message("P3_1") 
+                if self.state == "normal":\
+                root.send_message("P3_0")
+        SignalButton:
+            text: "P4"
+            on_state:
+                if self.state == "down": \
+                root.send_message("P4_1") 
+                if self.state == "normal":\
+                root.send_message("P4_0")
+        Label:
+            text: "Conveying signals"
+        SignalButton:
+            text: "S4"
+            on_state:
+                if self.state == "down": \
+                root.send_message("S4_1") 
+                if self.state == "normal":\
+                root.send_message("S4_0")
+        SignalButton:
+            text: "S5" 
+            on_state:
+                if self.state == "down": \
+                root.send_message("S5_1") 
+                if self.state == "normal":\
+                root.send_message("S5_0")
+        SignalButton:
+            text: "S7"
+            on_state:
+                if self.state == "down": \
+                root.send_message("S7_1") 
+                if self.state == "normal":\
+                root.send_message("S7_0") 
+        SignalButton:
+            text: "Cycle stop signal"
+            on_state:
+                if self.state == "down": \
+                root.send_message("CS_1") 
+                if self.state == "normal":\
+                root.send_message("CS_0")
+        SignalButton:
+            text: "Rush signal"
+            on_state:
+                if self.state == "down": \
+                root.send_message("RS_1") 
+                if self.state == "normal":\
+                root.send_message("RS_0")
